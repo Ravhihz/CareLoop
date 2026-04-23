@@ -1,0 +1,50 @@
+name: careloop
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  sqflite: ^2.3.3
+  sqflite_common_ffi: ^2.3.4
+  path: ^1.9.0
+  provider: ^6.1.2
+  flutter_local_notifications: ^17.2.3
+  timezone: ^0.9.4
+  shared_preferences: ^2.3.3
+  intl: ^0.20.2
+  cupertino_icons: ^1.0.8
+  app_badge_plus: ^1.2.9
+  flutter_native_splash: ^2.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.1
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/icon/icon.png
+  android_12:
+    image: assets/icon/icon.png
+    color: "#ffffff"
+  web: false
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/icon/
