@@ -2,7 +2,6 @@ import 'package:careloop/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -12,8 +11,7 @@ import 'screens/home_screen.dart';
 import 'l10n.dart';
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
 
   if (defaultTargetPlatform == TargetPlatform.windows ||
       defaultTargetPlatform == TargetPlatform.linux ||
@@ -21,13 +19,18 @@ void main() async {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
   }
-  await NotificationService.instance.init();
-  await NotificationService.instance.scheduleMorningCheckin();
+
+  await NotificationService.instance.init().timeout(
+    const Duration(seconds: 3),
+    onTimeout: () {},
+  );
+  await NotificationService.instance.scheduleMorningCheckin().timeout(
+    const Duration(seconds: 3),
+    onTimeout: () {},
+  );
 
   final prefs = await SharedPreferences.getInstance();
   final langCode = prefs.getString('language') ?? 'en';
-
-  FlutterNativeSplash.remove();
 
   runApp(CareLoopApp(initialLocale: Locale(langCode)));
 }
